@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS // <-- директива для scanf отключающая предупреждения безопасности -->
+#include <math.h>
 #include <stdio.h>
 #include <windows.h>
 #include <locale.h>
@@ -21,22 +22,28 @@ int main() //<=== определяем функцию main ===>
 	setlocale(LC_ALL, ".UTF8");
 
 	// <=== БЛОК ПЕРЕМЕННЫХ ===>
-	
-	int shirina;
-	int visota;
+
+	int shirina, visota;
 
 	// <=== БЛОК КОДА ===>
 
 	printf("Вычисляем S и P прямоугольника.\n");
+
 	printf("ВВЕДИТЕ ШИРИНУ: ");
-	scanf("%d", &shirina);
+	scanf("%d", &shirina); // Используем %d как стандарт
 
 	printf("ВВЕДИТЕ ВЫСОТУ: ");
-	scanf("%d", &visota);
+	scanf("%d", &visota);  // Используем %d как стандарт
 
-	printf("S прямоугольника равна: %d*%d=%d\n", shirina, visota, shirina * visota);
-	printf("P прямоугольника равен: 2*(%d+%d)=%d", shirina, visota, 2 * (shirina + visota));
+	printf("S прямоугольника равна: %d * %d = %d\n", shirina, visota, shirina * visota);
+	printf("P прямоугольника равен: 2 * (%d + %d) = %d\n", shirina, visota, 2 * (shirina + visota));
 
+	if (shirina * visota > 100) {
+		printf("Ого, какой большой прямоугольник");
+	}
+	else if (shirina * visota < 10) {
+		printf("Какой маленький прямоугольник");
+	}
 	return 0;
 }
 
