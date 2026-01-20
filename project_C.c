@@ -22,28 +22,25 @@ int main() //<=== определяем функцию main ===>
 	setlocale(LC_ALL, ".UTF8");
 
 	// <=== БЛОК ПЕРЕМЕННЫХ ===>
-
-	int shirina, visota;
+	
+	char word[100];
+	int count;
+	int i = 1; // переменная для цикла, начинаем счёт с единицы.
 
 	// <=== БЛОК КОДА ===>
 
-	printf("Вычисляем S и P прямоугольника.\n");
+	printf("Введите любое слово: ");
+	scanf("%s", word);
 
-	printf("ВВЕДИТЕ ШИРИНУ: ");
-	scanf("%d", &shirina); // Используем %d как стандарт
+	printf("Сколько раз повторить введёное слово?: ");
+	scanf("%d", &count);
 
-	printf("ВВЕДИТЕ ВЫСОТУ: ");
-	scanf("%d", &visota);  // Используем %d как стандарт
-
-	printf("S прямоугольника равна: %d * %d = %d\n", shirina, visota, shirina * visota);
-	printf("P прямоугольника равен: 2 * (%d + %d) = %d\n", shirina, visota, 2 * (shirina + visota));
-
-	if (shirina * visota > 100) {
-		printf("Ого, какой большой прямоугольник");
+	while (i <= count) // пока (i <= count) , повторяй то, что в теле цикла while.
+	{
+		printf("%s\t", word); 
+		i++;
 	}
-	else if (shirina * visota < 10) {
-		printf("Какой маленький прямоугольник");
-	}
+
 	return 0;
 }
 
