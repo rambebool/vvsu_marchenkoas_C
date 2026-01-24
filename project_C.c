@@ -55,11 +55,11 @@ double get_bonus(void)
 		printf("Введите в процентах, сколько вы хотите оставить чаевых?: ");
 		scanf("%lf", &bonus);
 	}
-	if (bonus = 0)
+	if (bonus == 0)
 	{
 		printf("Вы не оставили чаевые.\n");
 	}
-	else if (bonus > 0)
+	else
 	{
 		printf("Благодарим за чаевые.\n");
 	}
@@ -120,7 +120,7 @@ int main()
 	printf("\t\tСЧЁТ НА ИМЯ %s:\t\n", name);
 	printf("--------------------------------------------------------------\n");
 	printf("\tВСЕГО: ");
-	printf("%2.lf Рублей\n", ticket_itogo);
+	printf("%.2lf Рублей\n", ticket_itogo);
 	printf("- Количество персон:\t\t");
 	printf("%d человек\n", person);
 	printf("- Каждый заплатит по:\t\t");
