@@ -11,7 +11,9 @@ int main()
 {
 	set_localization(); // функция локализации.
 
-	double matrix[3][3];
+	/*
+	
+	double matrix[3][3]; // массив matrix размером 3 на 3.
 	
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
@@ -21,7 +23,7 @@ int main()
 		printf("Столбец %d заполнен.\nЗаполняем следующий столбец.\n", i + 1);
 	}
 
-	printf("\n\n\nМатрица заполнена.\nВаша матрица выглядит следующим образом:\n");
+	printf("\n\n\nМатрица заполнена.\nМатрица выглядит следующим образом:\n");
 
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
@@ -29,7 +31,43 @@ int main()
 		}
 		printf("\n");
 	}
+
+	printf("\n\n\n");
+
+	printf("Значения главной диагонали матрицы: \n");
+	for (int i = 0; i < 3; i++) {
+			printf("%.2lf, ", matrix[i][i]);
+	}
+
+	printf("\n");
+
+	printf("Значения побочной диагонали матрицы: \n");
+	for (int i = 0; i < 3; i++) {
+		printf("%.2lf, ", matrix[i][3 - 1 - i]);
+	}
+
+	*/
+
+
+	int n = 1;
+	int* ptr = malloc(n * sizeof(int)); // выделяем память для 4-х чисел int
+	if (ptr)
+	{
+		// помещаем значения в выделенную память
+		printf("введи значение: ");
+		scanf("%d", &n);
+		// получаем значения
+		for (int i = 0; i < n; i++)
+		{
+			printf("%d", ptr[i]);
+		}
+	}
+
+	free(ptr);
+
+	return 0;
 }
+
 
 // <=== ОПРЕДЕЛЕНИЯ ФУНКЦИЙ ===>
 void set_localization()
