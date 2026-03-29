@@ -6,28 +6,26 @@
 
 	// === ПРОТОТИПЫ ФУНКЦИЙ ===
 void set_localization();
-int ploshyad_pryamougolnika(int shirina, int visota);
 
 int main()
 {
 	set_localization(); // функция локализации.
 
-
-	int matrix[3][3];
+	double matrix[3][3];
 	
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			printf("Введите число: ");
-			scanf("%d", &matrix[i][j]);
+			scanf("%lf", &matrix[i][j]);
 		}
-		printf("Столбец %d заполнен. Заполняем столбец %d.\n", i + 1, i + 2);
+		printf("Столбец %d заполнен.\nЗаполняем следующий столбец.\n", i + 1);
 	}
 
 	printf("\n\n\nМатрица заполнена.\nВаша матрица выглядит следующим образом:\n");
 
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			printf("%d ", matrix[i][j]);
+			printf("%.2lf\t", matrix[i][j]);
 		}
 		printf("\n");
 	}
@@ -41,9 +39,4 @@ void set_localization()
 	SetConsoleCP(CP_UTF8);
 	// <-- Устанавливаем локаль CRT в UTF-8 -->
 	setlocale(LC_ALL, ".UTF8");
-}
-int ploshyad_pryamougolnika(int shirina, int visota)
-{
-	int result_ploshyad_pryamougolnika = shirina * visota;
-	return result_ploshyad_pryamougolnika;
 }
