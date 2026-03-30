@@ -4,6 +4,9 @@
 #include <windows.h>
 #include <locale.h>
 
+#define m1 3 // константна для хранения размера массива для матрицы_1. Правим, в случае если хотим задать размер квадратной матрицы.
+#define m2 2 // константна для хранения размера массива для матрицы_2. Правим, в случае если хотим задать размер квадратной матрицы.
+
 	// === ПРОТОТИПЫ ФУНКЦИЙ ===
 void set_localization();
 
@@ -11,59 +14,85 @@ int main()
 {
 	set_localization(); // функция локализации.
 
-	/*
-	
-	double matrix[3][3]; // массив matrix размером 3 на 3.
-	
+	double matrix_1[m1][m1]; // Объявляем массив данных типа double размера 3 на 3, поскольку #define m1 = 3.
+
+	printf("Заполняем массив данных. \n\n");
+
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			printf("Введите число: ");
-			scanf("%lf", &matrix[i][j]);
+			scanf("%lf", &matrix_1[i][j]);
 		}
-		printf("Столбец %d заполнен.\nЗаполняем следующий столбец.\n", i + 1);
 	}
 
-	printf("\n\n\nМатрица заполнена.\nМатрица выглядит следующим образом:\n");
+	printf("\nМассив заполнен.\nВыводим итоговую таблицу(матрицу).\n\n");
 
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			printf("%.2lf\t", matrix[i][j]);
+			printf("%.1lf\t", matrix_1[i][j]);
 		}
 		printf("\n");
 	}
 
-	printf("\n\n\n");
+	printf("\nПроизводим расчёты...\n");
 
-	printf("Значения главной диагонали матрицы: \n");
+	double sum_glav = 0;
+	double sum_poboch = 0;
+
 	for (int i = 0; i < 3; i++) {
-			printf("%.2lf, ", matrix[i][i]);
+		sum_glav = sum_glav + matrix_1[i][i];
 	}
+	printf("\nСумма значений главной диагонали матрицы равна: %.2lf", sum_glav);
 
-	printf("\n");
-
-	printf("Значения побочной диагонали матрицы: \n");
 	for (int i = 0; i < 3; i++) {
-		printf("%.2lf, ", matrix[i][3 - 1 - i]);
+		sum_poboch = sum_poboch + matrix_1[i][3 - 1 - i];
 	}
+	printf("\nСумма значений побочной диагонали матрицы равна: %.2lf\n", sum_poboch);
+	
 
-	*/
+	printf("\n==============================================================");
+	printf("\n==================Вторая часть лабораторной===================\n");
+	printf("==============================================================\n");
 
 
-	int n = 1;
-	int* ptr = malloc(n * sizeof(int)); // выделяем память для 4-х чисел int
-	if (ptr)
-	{
-		// помещаем значения в выделенную память
-		printf("введи значение: ");
-		scanf("%d", &n);
-		// получаем значения
-		for (int i = 0; i < n; i++)
-		{
-			printf("%d", ptr[i]);
+	int matrix_2[m2][m2]; // Объявляем массив данных типа int размера 2 на 2.
+
+	printf("Заполняем матрицу... \nРазмер КВАДРАТНОЙ матрицы: %d \n", m2);
+	for (int i = 0; i < m2; i++) {
+		for (int j = 0; j < m2; j++) {
+			printf("Введите число: ");
+			scanf("%d", &matrix_2[i][j]);
 		}
 	}
 
-	free(ptr);
+	printf("Матрица имеет вид: \n");
+	for (int i = 0; i < m2; i++) {
+		for (int j = 0; j < m2; j++) {
+			printf("%d ", matrix_2[i][j]);
+		}
+		printf("\n");
+	}
+
+	printf("\nПеремножим матрицу саму на себя (квадрат матрицы).\n");
+	int squad_matrix[m2][m2];
+	for (int i = 0; i < m2; i++) {
+		for (int j = 0; j < m2; j++) {
+			squad_matrix[i][j] = 0;
+			for (int a = 0; a < m2; a++) {
+				squad_matrix[i][j] = squad_matrix[i][j] + matrix_2[i][a] * matrix_2[a][j];
+			}
+		}
+	}
+
+	printf("\nКвадрат матрицы:\n");
+	for (int i = 0; i < m2; i++) {
+		for (int j = 0; j < m2; j++) {
+			printf("%d ", squad_matrix[i][j]);
+		}
+		printf("\n");
+	}
+
+
 
 	return 0;
 }
