@@ -42,5 +42,10 @@ malloc(10 * sizeof(double))
 malloc(5 * sizeof(long long))
 5 × 8 = 40 байт
 
+// побочная диагональ
+sum_poboch = sum_poboch + matrix[i][3 - i - 1]; 3 - размер матрицы;
 
+// Внутренний цикл, строка на столбец.
+for (int a = 0; a < m2; a++) {
+				squad_matrix[i][j] = squad_matrix[i][j] + matrix_2[i][a] * matrix_2[a][j];
 
