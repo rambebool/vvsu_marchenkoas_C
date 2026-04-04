@@ -3,9 +3,8 @@
 #include <stdio.h>
 #include <windows.h>
 #include <locale.h>
+#include <stdlib.h>
 
-#define m1 3 // константна для хранения размера массива для матрицы_1. Правим, в случае если хотим задать размер квадратной матрицы.
-#define m2 2 // константна для хранения размера массива для матрицы_2. Правим, в случае если хотим задать размер квадратной матрицы.
 
 	// === ПРОТОТИПЫ ФУНКЦИЙ ===
 void set_localization();
@@ -14,92 +13,133 @@ int main()
 {
 	set_localization(); // функция локализации.
 
-	double matrix[3][3];
+	int size_m;
+	printf("Введите размер КВАДРАТНОЙ матрицы: ");
+	scanf("%d", &size_m); 
+	printf("\n(!)Задан размер квадратной матрицы: %d на %d\n", size_m, size_m);
 
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			printf("Введите число: ");
+	// выделяем область памяти для матрицы. matrix - переменная хранящая адрес памяти, куда мы запишем значения.
+	double** matrix = malloc(size_m * sizeof(double*));
+	// сразу сделаем проверку прежде чем выделять память под ячейки.
+	if (matrix == NULL) {
+		printf("Ошибка выделения памяти.");
+		return 1; // завершаем с кодом ошибки.
+	}
+	// выделяем память под каждую ячейку в соответствии с size_m (количеством ячеек), в них запишем значения элементов матрицы.
+	for (int i = 0; i < size_m; i++) {
+		matrix[i] = malloc(size_m * sizeof(double));
+	}
+	
+	// заполним матрицу значениями.
+	for (int i = 0; i < size_m; i++) {
+		printf("Заполняем %d столбец.\n", i + 1);
+		for (int j = 0; j < size_m; j++) {
+			printf("Введите значение для %d строки %d столбца: ", j + 1, i + 1);
 			scanf("%lf", &matrix[i][j]);
 		}
 	}
 
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			printf("%.2lf ", matrix[i][j]);
+	printf("\nКВАДРАТНАЯ матрица:\n");
+	for (int i = 0; i < size_m; i++) {
+		for (int j = 0; j < size_m; j++) {
+			printf("%.2lf\t", matrix[i][j]);
 		}
 		printf("\n");
 	}
 
-	// главная диагональ
-	printf("\nГлавная диагональ\n");
-
-	double sum_glav = 0.0;
-	for (int i = 0; i < 3; i++) {
+	// 2 переменные для суммы эл-тов побочной/главной диагонали.
+	double sum_glav = 0;
+	double sum_poboch = 0;
+	// перечислям(показываем пользователю) + сразу суммируем и записываем в соответсвтвующую переменную.
+	printf("----------------------------------------\n");
+	printf("Главная диагональ:\n");
+	for (int i = 0; i < size_m; i++) {
+		printf("%.2lf\t", matrix[i][i]);
 		sum_glav = sum_glav + matrix[i][i];
-		printf("%.2lf, ", matrix[i][i]);
+	}
+	printf("\n----------------------------------------\n");
+	printf("Побочная диагональ:\n");
+	for (int i = 0; i < size_m; i++) {
+		printf("%.2lf\t", matrix[i][size_m - i - 1]);
+		sum_poboch = sum_poboch + matrix[i][size_m - i - 1];
+	}
+	printf("\n----------------------------------------\n");
+
+	//показываем результат вычислений.
+	printf("\nСумма элементов ГЛАВНОЙ диагонали матрицы: %.2lf\n", sum_glav);
+	printf("Сумма элементов ПОБОЧНОЙ диагонали матрицы: %.2lf\n", sum_poboch);
+	printf("\n\n");
+
+
+	// очистка памяти.
+	for (int i = 0; i < size_m; i++) {
+		free(matrix[i]); // чистим каждую ячейку памяти на которую ссылается переменная matrix_source.
+	}
+	free(matrix); // очищаем адрес на указатель.
+
+	/*---------------------------------------------------------------------*/
+	
+	int size_matrix;
+	printf("Введите размер матрицы: ");
+	scanf("%d", &size_matrix);
+
+	int** matrix_source = malloc(size_matrix * sizeof(int*));
+	for (int i = 0; i < size_matrix; i++) {
+		matrix_source[i] = malloc(size_matrix * sizeof(int));
 	}
 
-	printf("\n");
-
-	// побочная диагональ
-	printf("\nПобочная диагональ\n");
-	double sum_poboch = 0.0;
-	for (int i = 0; i < 3; i++) {
-		sum_poboch = sum_poboch + matrix[i][3 - i - 1];
-		printf("%.2lf, ", matrix[i][3 - i - 1]);
-	}
-
-
-	printf("\n\n");
-	printf("Сумма главной диагонали: %.2lf\n", sum_glav);
-	printf("Сумма главной диагонали: %.2lf\n", sum_poboch);
-	printf("\n\n");
-	printf("Часть 2.\n\n");
-
-
-	int matrix_2[2][2];
-
-	for (int i = 0; i < 2; i++) {
-		for (int j = 0; j < 2; j++) {
-			printf("Введите значение: ");
-			scanf("%d", &matrix_2[i][j]);
+	printf("Заполняем матрицу.\n");
+	for (int i = 0; i < size_matrix; i++) {
+		printf("Заполняем %d столбец.\n", i + 1);
+		for (int j = 0; j < size_matrix; j++) {
+			printf("Введите значение для %d строки %d столбца: ", j + 1, i + 1);
+			scanf("%d", &matrix_source[i][j]);
 		}
 	}
 
-	printf("\n");
-	printf("Матрица имеет вид: \n");
-
-	for (int i = 0; i < 2; i++) {
-		for (int j = 0; j < 2; j++) {
-			printf("%d ", matrix_2[i][j]);
+	printf("КВАДРАТНАЯ матрица:\n");
+	for (int i = 0; i < size_matrix; i++) {
+		for (int j = 0; j < size_matrix; j++) {
+			printf("%d\t", matrix_source[i][j]);
 		}
 		printf("\n");
 	}
 
-	int squad_matrix_2[2][2]; // пустой массив для будущей матрицы.
+	printf("Возводим матрицу в квадрат.\n");
+	int** matrix_square = malloc(size_matrix * sizeof(int*));
+	for (int i = 0; i < size_matrix; i++) {
+		matrix_square[i] = malloc(size_matrix * sizeof(int));
+	}
 
-	for (int i = 0; i < 2; i++) {
-		for (int j = 0; j < 2; j++) {
-			squad_matrix_2[i][j] = 0; 					// обнуляем т.к. в ней после цикла есть "мусор", либо до него (память не очищается сама по себе). "Вычислили - записали - обнулили" <-- и так по кругу.
-			for (int a = 0; a < 2; a++) {
-				// Для ячейки [i][j] результата:
-				// Берём строку [i] и столбец [j] из исходной матрицы,
-				// перемножаем соответствующие элементы (с индексом 'a')
-				// и НАКАПЛИВАЕМ сумму в ячейке результата.
-				squad_matrix_2[i][j] = squad_matrix_2[i][j] + matrix_2[i][a] * matrix_2[a][j]; // счётчик 'a' перемножает строку i на столбец j, сумма копится в [i][j]"
-			}
+
+	for (int i = 0; i < size_matrix; i++) {
+		for (int j = 0; j < size_matrix; j++) {
+			matrix_square[i][j] = 0;
+				for (int a = 0; a < size_matrix; a++) {
+					matrix_square[i][j] = matrix_square[i][j] + matrix_source[i][a] * matrix_source[a][j];
+				}
 		}
 	}
 
-	printf("\n");
-	printf("Матрица возведённая в квадрат:\n");
-
-	for (int i = 0; i < 2; i++) {
-		for (int j = 0; j < 2; j++) {
-			printf("%d ", squad_matrix_2[i][j]);
+	printf("\nИТОГО\n");
+	for (int i = 0; i < size_matrix; i++) {
+		for (int j = 0; j < size_matrix; j++) {
+			printf("%d\t", matrix_square[i][j]);
 		}
 		printf("\n");
 	}
+
+	// очищаем память.
+	for (int i = 0; i < size_matrix; i++) {
+		free(matrix_source[i]);
+	}
+	free(matrix_source);
+
+	for (int i = 0; i < size_matrix; i++) {
+		free(matrix_square[i]);
+	}
+	free(matrix_square);
+	
 
 	return 0;
 }
